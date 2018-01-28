@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+First, we'll define the Big-O functions:
+<<>>=
+exponential_time = function(n) {2^n}
+cubic_time = function(n) {n^3}
+quadratic_time = function(n) {n^2}
+loglinear_time = function(n) {n * log(base = 2, n)}
+linear_time = function(n) {n}
+logarithmic_time = function(n) {log(base = 2, n)}
+constant_time = function(n) {1}
+@
+
+We need to capture these functions in an ordered-list so we can iterate over them:
+<<>>=
+big_o_functions = c("constant_time", "logarithmic_time", "linear_time", "loglinear_time", "quadratic_time", "cubic_time", "exponential_time")
+@
+
+Next, we add the linear-regression function:
+<<>>=
+linear_regression <- function(n, actual) {
+  seMatrix = cbind(big_o_functions[], array(data = 0, dim = length(big_o_functions)))
+  
+  for(i in {1:length(seMatrix[,1])}) {
+    predictor <- get(seMatrix[i,1])
+    seMatrix[i,2] = sum(sapply({1:n}, function(x)(actual(x) - predictor(x))^2))
+  }
+  
+  seMatrix
+}
+@
+
+
+
+\end{document}
